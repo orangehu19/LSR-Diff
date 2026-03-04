@@ -12,7 +12,7 @@ import models
 import datasets
 import utils
 from models import DenoisingDiffusion, DiffusiveRestoration
-from utils.metrics import calculate_psnr, calculate_ssim  # 替换skimage，使用指定函数
+from utils.metrics import calculate_psnr, calculate_ssim  
 from PIL import Image
 import lpips
 from pytorch_fid import fid_score
@@ -23,19 +23,19 @@ def parse_args_and_config():
     parser = argparse.ArgumentParser(description='Evaluate Wavelet-Based Diffusion Model')
     parser.add_argument("--config", default='LOLv2.yml', type=str,
                         help="Path to the config file")
-    parser.add_argument('--resume', default='/HUBU-AI093/hcc_24/model/DiffLL_OP/ckpt/260131_2batch_patch352_2down_fft_lolv2-real/model_val_best.pth.tar',
+    parser.add_argument('--resume', default='./ckpt/best_lolv1.pth.tar',
                         type=str,
                         help='Path for the diffusion model checkpoint to load for evaluation')
     parser.add_argument("--sampling_timesteps", type=int, default=10,
                         help="Number of implicit sampling steps")
-    parser.add_argument("--image_folder", default='results/0131_lolv2_fft', type=str,
+    parser.add_argument("--image_folder", default='results/best_lolv1', type=str,
                         help="Location to save restored images")
     # parser.add_argument('--target_folder',
     #                     default='/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset/LOLv1/val/high',
     #                     type=str,
     #                     help="Path to the folder containing target/reference images for PSNR/SSIM calculation")
     parser.add_argument('--target_folder',
-                        default='/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset/LOLv2-real/val/normal',
+                        default='./data/Image_restoration/LL_dataset/LOLv1/val/high',
                         type=str,
                         help="Path to the folder containing target/reference images for PSNR/SSIM calculation")
     parser.add_argument('--seed', default=230, type=int, metavar='N',
@@ -197,8 +197,7 @@ def main():
 
     # 计算评估指标
     if args.target_folder:
-        # calculate_metrics(os.path.join(args.image_folder, 'LSRW-Nikon'), args.target_folder, device)
-        calculate_metrics(os.path.join(args.image_folder, 'LOLv2-real'), args.target_folder, device)
+        calculate_metrics(os.path.join(args.image_folder, 'LOLv1'), args.target_folder, device)
 
 
 if __name__ == '__main__':
