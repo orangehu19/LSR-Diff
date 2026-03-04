@@ -30,10 +30,6 @@ def parse_args_and_config():
                         help="Number of implicit sampling steps")
     parser.add_argument("--image_folder", default='results/best_lolv1', type=str,
                         help="Location to save restored images")
-    # parser.add_argument('--target_folder',
-    #                     default='/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset/LOLv1/val/high',
-    #                     type=str,
-    #                     help="Path to the folder containing target/reference images for PSNR/SSIM calculation")
     parser.add_argument('--target_folder',
                         default='./data/Image_restoration/LL_dataset/LOLv1/val/high',
                         type=str,
