@@ -1,0 +1,79 @@
+# data:
+#    type: "LLdataset"
+# #    train_dataset: "LOLv1"
+#    val_dataset: "architectural_dataset"
+#    patch_size: 320
+#    channels: 3
+#    num_workers: 4
+#    data_dir: "/HUBU-AI093/hcc_24/model/DiffLL_OP/data/"  # 修改为实际路径
+#    ckpt_dir: "ckpt/"
+#    conditional: True
+
+# data:
+#     type: "LLdataset"
+#     train_dataset: "LOLv1"
+#     val_dataset: "LOLv1"
+#     patch_size: 256
+#     channels: 3
+#     num_workers: 4
+#     data_dir: "/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset"  # 修改为实际路径
+#     ckpt_dir: "ckpt/"
+#     conditional: True
+
+# data:
+#     type: "LLdataset"
+#     train_dataset: "LOLv2-real"
+#     val_dataset: "LOLv2-real"
+#     patch_size: 256
+#     channels: 3
+#     num_workers: 4
+#     data_dir: "/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset"  # 修改为实际路径
+#     ckpt_dir: "ckpt/"
+#     conditional: True
+
+data:
+    type: "LLdataset"
+    train_dataset: "LSRW"
+    val_dataset: "LSRW"
+    patch_size: 256
+    channels: 3
+    num_workers: 4
+    data_dir: "/HUBU-AI093/hcc_24/model/DiffLL_OP/data/Image_restoration/LL_dataset"  # 修改为实际路径
+    ckpt_dir: "ckpt/"
+    conditional: True
+
+model:
+    in_channels: 3
+    out_ch: 3
+    ch: 64
+    ch_mult: [1, 2, 3, 4]
+    num_res_blocks: 2
+    dropout: 0.0
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.0001
+    beta_end: 0.02
+    num_diffusion_timesteps: 200
+
+training:
+    batch_size: 2
+    n_epochs: 500
+    validation_freq: 2800
+    # validation_freq: 485
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.0001
+    amsgrad: False
+    eps: 0.00000001
+    step_size: 50
+    gamma: 0.8
+
+# evaluation:
+#     input_folder: "/home/hubu/202421121013079_hcc/Model/DiffLL_OP/data/low"
+#     output_dir: "/home/hubu/202421121013079_hcc/Model/DiffLL_OP/results/eval_ourdata/"
