@@ -49,8 +49,6 @@ tensorflow-estimator==2.2.0
 tensorflow-io-gcs-filesystem==0.22.0
 termcolor==1.1.0
 timm==0.4.12
-torch==1.8.1
 torchsummary==1.5.1
-torchvision==0.9.1
 urllib3==1.25.11
 kornia==0.6.7
