@@ -1,15 +1,6 @@
 # LSR-Diff
 ## Coming Soon
 
-### Datasets
-* **LOLv1 dataset**: Chen Wei, Wenjing Wang, Wenhan Yang, and Jiaying Liu. "Deep Retinex Decomposition for Low-Light Enhancement", BMVC, 2018. [Baiduyun (extracted code: 1111)](https://pan.baidu.com/s/1DdJQMq7YMoLkeTErI23C_w?pwd=1111)
-
-* **LOLv2-real dataset**: Wenhan Yang, Haofeng Huang, Wenjing Wang, Shiqi Wang, and Jiaying Liu. "Sparse Gradient Regularized Deep Retinex Network for Robust Low-Light Image Enhancement", TIP, 2021. [Baiduyun (extracted code: 2222)](https://pan.baidu.com/s/1RsgPO9Ymk0axyPZ_pkfGoQ?pwd=2222))
-
-* **LSRW dataset**: Jiang Hai, Zhu Xuan, Ren Yang, Yutong Hao, Fengzhu Zou, Fang Lin, and Songchen Han. "R2RNet: Low-light Image Enhancement via Real-low to Real-normal Network", Journal of Visual Communication and Image Representation, 2023. [Baiduyun (extracted code: 3333)](https://pan.baidu.com/s/13My64IjVGcakGVsTheXy1w?pwd=3333)
-
----
-
 ## Overview
 
 LSR-Diff is a diffusion-based low-light image restoration framework for efficient high-resolution enhancement. The current codebase provides the training pipeline, dataset loader, configuration files, model components, checkpoint saving, and validation during training.
@@ -39,26 +30,30 @@ A recent CUDA-enabled PyTorch environment is recommended.
 git clone https://github.com/orangehu19/LSR-Diff.git
 cd LSR-Diff
 
-conda create -n lsrdiff python=3.8 -y
-conda activate lsrdiff
+conda create -n LSR_Diff python==3.10
+conda activate LSR_Diff
 
-# Install PyTorch according to your CUDA version from https://pytorch.org/
-# Example only; adjust the CUDA wheel/index for your machine.
-pip install torch torchvision
-
-# Common Python dependencies used by the current codebase
-pip install numpy pillow pyyaml tqdm pytorch-msssim
+pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cu124
+pip install -r requirements.txt
 ```
 
 Notes:
 
-* The code uses `torch`, `torchvision`, `PIL`, `numpy`, `yaml`, `tqdm`, and `pytorch_msssim`.
+* The code uses the dependencies listed in `requirements.txt`.
 * `models/ddm.py` uses `torchvision.models.vgg16(pretrained=True)` for perceptual loss. On the first run, torchvision may download VGG weights automatically if they are not already cached.
 * If you encounter CUDA or PyTorch installation issues, install PyTorch from the official command matching your CUDA driver.
 
 ## Dataset Preparation
 
-Download the datasets from the links above and organize them under the directory specified by `data.data_dir` in the YAML config files. The default root is:
+Download the datasets from the links below and organize them under the directory specified by `data.data_dir` in the YAML config files.
+
+* **LOLv1 dataset**: Chen Wei, Wenjing Wang, Wenhan Yang, and Jiaying Liu. "Deep Retinex Decomposition for Low-Light Enhancement", BMVC, 2018. [Baiduyun (extracted code: 1111)](https://pan.baidu.com/s/1DdJQMq7YMoLkeTErI23C_w?pwd=1111)
+
+* **LOLv2-real dataset**: Wenhan Yang, Haofeng Huang, Wenjing Wang, Shiqi Wang, and Jiaying Liu. "Sparse Gradient Regularized Deep Retinex Network for Robust Low-Light Image Enhancement", TIP, 2021. [Baiduyun (extracted code: 2222)](https://pan.baidu.com/s/1RsgPO9Ymk0axyPZ_pkfGoQ?pwd=2222))
+
+* **LSRW dataset**: Jiang Hai, Zhu Xuan, Ren Yang, Yutong Hao, Fengzhu Zou, Fang Lin, and Songchen Han. "R2RNet: Low-light Image Enhancement via Real-low to Real-normal Network", Journal of Visual Communication and Image Representation, 2023. [Baiduyun (extracted code: 3333)](https://pan.baidu.com/s/13My64IjVGcakGVsTheXy1w?pwd=3333)
+
+The default dataset root is:
 
 ```text
 ./data/Image_restoration/LL_dataset
