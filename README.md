@@ -1,5 +1,4 @@
 # LSR-Diff
-## Coming Soon
 
 ## Overview
 
