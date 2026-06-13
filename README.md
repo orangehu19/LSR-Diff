@@ -2,15 +2,16 @@
 
 ## Overview
 
-LSR-Diff is a diffusion-based low-light image restoration framework for efficient high-resolution enhancement. The current codebase provides the training pipeline, dataset loader, configuration files, model components, checkpoint saving, and validation during training.
+LSR-Diff is a diffusion-based low-light image restoration framework for efficient high-resolution enhancement. The current codebase provides the training pipeline, evaluation script, dataset loader, configuration files, model components, checkpoint saving, and metric calculation.
 
-The main public entry point is `train.py`. It reads experiment settings from `configs/*.yml`, builds the low-light paired dataset loader, trains the denoising diffusion model, periodically runs validation, and saves checkpoints under the configured checkpoint directory.
+The main public entry points are `train.py` and `evaluate.py`. `train.py` reads experiment settings from `configs/*.yml`, builds the low-light paired dataset loader, trains the denoising diffusion model, periodically runs validation, and saves checkpoints under the configured checkpoint directory. `evaluate.py` loads a trained checkpoint, restores validation images, and reports PSNR, SSIM, LPIPS, and FID.
 
 ## Repository Structure
 
 ```text
 LSR-Diff/
 ├── train.py                  # Training entry point
+├── evaluate.py               # Evaluation entry point for checkpoints and metrics
 ├── configs/                  # YAML configuration files
 │   ├── LOLv1.yml
 │   ├── LOLv2.yml
@@ -202,7 +203,46 @@ ckpt/<experiment_name>/model_train_best.pth.tar
 ckpt/<experiment_name>/model_val_best.pth.tar
 ```
 
-The current public codebase contains the restoration wrapper in `models/restoration.py`. A standalone inference script is not included yet; for custom inference, load a trained checkpoint with `DenoisingDiffusion.load_ddm_ckpt(...)` and call `DiffusiveRestoration.restore(...)` on a validation/test dataloader.
+## Evaluation
+
+After training, use `evaluate.py` to load a `.pth.tar` checkpoint, restore validation images, and calculate PSNR, SSIM, LPIPS, and FID against the reference images.
+
+Example for LOLv1:
+
+```bash
+python evaluate.py \
+  --config LOLv1.yml \
+  --resume ckpt/260203_2batch_patch256_2down_fft_lsrw/model_val_best.pth.tar \
+  --sampling_timesteps 10 \
+  --image_folder results/lolv1 \
+  --target_folder ./data/Image_restoration/LL_dataset/LOLv1/val/high
+```
+
+Important arguments:
+
+| Argument | Description |
+|---|---|
+| `--config` | Dataset/config file in `configs/` |
+| `--resume` | Path to the trained `.pth.tar` checkpoint |
+| `--sampling_timesteps` | Number of implicit sampling steps for restoration |
+| `--image_folder` | Directory used to save restored images |
+| `--target_folder` | Directory of reference high-quality images for metric calculation |
+
+The restored images are saved under:
+
+```text
+<image_folder>/<val_dataset>/
+```
+
+For example, with `--config LOLv1.yml --image_folder results/lolv1`, restored images are saved to:
+
+```text
+results/lolv1/LOLv1/
+```
+
+The evaluation script then compares the restored images with `--target_folder` and prints average PSNR, SSIM, LPIPS, and FID.
+
+The default evaluation settings in `evaluate.py` are written for LOLv1. To evaluate another dataset, change `--config`, `--target_folder`, and the restored-image folder used by the metric calculation accordingly.
 
 ## Method Components
 
