@@ -31,7 +31,7 @@ def parse_args_and_config():
     parser.add_argument("--image_folder", default='results/best_lolv1', type=str,
                         help="Location to save restored images")
     parser.add_argument('--target_folder',
-                        default='./data/Image_restoration/LL_dataset/LOLv1/val/high',
+                        default='./data/LOLv1/val/high',
                         type=str,
                         help="Path to the folder containing target/reference images for PSNR/SSIM calculation")
     parser.add_argument('--seed', default=230, type=int, metavar='N',
