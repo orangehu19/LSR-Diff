@@ -189,19 +189,7 @@ ckpt/260203_2batch_patch256_2down_fft_lsrw/model_train_best.pth.tar
 ckpt/260203_2batch_patch256_2down_fft_lsrw/model_val_best.pth.tar
 ```
 
-## Validation and Output
-
-During training, validation is triggered every `training.validation_freq` steps. The validation routine computes PSNR and SSIM and saves the best validation checkpoint.
-
-Main outputs include:
-
-```text
-output/train/results/validation_results/   # validation image outputs when enabled
-ckpt/<experiment_name>/training_metrics.txt
-ckpt/<experiment_name>/model_latest.pth.tar
-ckpt/<experiment_name>/model_train_best.pth.tar
-ckpt/<experiment_name>/model_val_best.pth.tar
-```
+Pretrained or released checkpoints can be placed under `ckpt/`. Future downloadable trained weights will also be organized in this folder.
 
 ## Evaluation
 
