@@ -10,8 +10,6 @@ The main public entry points are `train.py` and `evaluate.py`. `train.py` reads 
 
 ```text
 LSR-Diff/
-├── train.py                  # Training entry point
-├── evaluate.py               # Evaluation entry point for checkpoints and metrics
 ├── configs/                  # YAML configuration files
 │   ├── LOLv1.yml
 │   ├── LOLv2.yml
@@ -19,6 +17,9 @@ LSR-Diff/
 ├── datasets/                 # Paired low-light dataset loader and augmentation
 ├── models/                   # Diffusion model, restoration modules, SR and enhancement blocks
 ├── utils/                    # Checkpoint, image saving, optimizer and sampling utilities
+├── requirements.txt
+├── train.py                  # Training entry point
+├── evaluate.py               # Evaluation entry point for checkpoints and metrics
 └── README.md
 ```
 
